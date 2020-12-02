@@ -9,22 +9,43 @@ import java.io.FileInputStream
 
 fun main() {
     val options = FirebaseOptions.builder()
-        .setCredentials(GoogleCredentials.fromStream(FileInputStream("fcm.json")))
-        .setDatabaseUrl(dbUrl)
-        .build()
+            .setCredentials(GoogleCredentials.fromStream(FileInputStream("fcm.json")))
+            .setDatabaseUrl(dbUrl)
+            .build()
 
     FirebaseApp.initializeApp(options)
 
+//    val message = Message.builder()
+//            .putData("action", "LIKE")
+//            .putData("content", """{
+//          "userId": 1,
+//          "userName": "Vasiliy",
+//          "postId": 2,
+//          "postAuthor": "Netology"
+//        }""".trimIndent())
+//            .setToken(token)
+//            .build()
+
+//    val message = Message.builder()
+//            .putData("action", "OTHER")
+//            .putData("content", """{
+//            "userId": 1,
+//            "userName": "Vasiliy",
+//            "postId": 2
+//        }""".trimIndent())
+//            .setToken(token)
+//            .build()
+
     val message = Message.builder()
-        .putData("action", "LIKE")
-        .putData("content", """{
+            .putData("action", "NEWPOST")
+            .putData("content", """{
           "userId": 1,
           "userName": "Vasiliy",
           "postId": 2,
-          "postAuthor": "Netology"
+          "text": "A basic notification usually includes a title, a line of text, and one or more actions the user can perform in response. To provide even more information, you can also create large, expandable notifications by applying one of several notification templates as described on this page."
         }""".trimIndent())
-        .setToken(token)
-        .build()
+            .setToken(token)
+            .build()
 
     FirebaseMessaging.getInstance().send(message)
 }
